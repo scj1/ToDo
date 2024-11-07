@@ -1,0 +1,81 @@
+{% extends 'todo_app/base.html' %}
+
+{% block title %}
+Add Task
+{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        background-color: white;
+        color: black;
+    }
+
+
+    .dark-mode {
+        background-color: rgb(0, 19, 35);
+        color: white;
+    }
+
+    body,
+    .table,
+    button,
+    .container-fluid,
+    .sub-container {
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+</style>
+<button onclick="darkMode()" style="margin: 10px;" class="btn btn-primary" data-toggle="button" aria-pressed="false"
+    autocomplete="off">Dark theme</button>
+<div class="container mt-5">
+    <h3>Add a New Task</h3>
+
+
+    <form method="POST" action="{% url 'addTask' %}">
+        {% csrf_token %}
+        <div class="form-group mb-3">
+            <label for="taskTitle">Task Name</label>
+            <input type="text" class="form-control" id="taskTitle" name="title" placeholder="Enter task name" required>
+        </div>
+        <div class="form-group mb-3">
+            <label for="taskDescription">Task Description</label>
+            <textarea class="form-control" id="taskDescription" name="description" rows="3"
+                placeholder="Enter task description" required></textarea>
+        </div>
+        <div class="form-group mb-3">
+            <label for="assigneeEmail">Assignee Email</label>
+            <input type="email" class="form-control" id="assigneeEmail" name="email" placeholder="Enter assignee email"
+                required>
+        </div>
+        <div class="form-group mb-3">
+            <label for="assigneeName">Assignee Name</label>
+            <input type="text" class="form-control" id="assigneeName" name="assignee_name"
+                placeholder="Enter assignee name" required>
+        </div>
+        <div class="form-group mb-3">
+            <label for="deadline">Deadline</label>
+            <input type="date" class="form-control" id="deadline" name="deadline">
+        </div>
+        <div class="form-group mb-3">
+            <label for="typex">Type</label>
+            <select id="typex" name="typex">
+                <option value="epic">Epic</option>
+                <option value="urgent">Urgent</option>
+                <option value="normal">Normal</option>
+                <option value="low">Low Priority</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-success">Save Task</button>
+    </form>
+
+</div>
+
+<script>
+    function darkMode() {
+        var element = document.body;
+        element.classList.toggle("dark-mode");
+    }
+</script>
+
+{% endblock %}
